@@ -1,0 +1,13 @@
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "the-sauce-bottle"
+version = "0.1.0"
+description = "Track Australian politicians' statement accuracy."
+authors = [
+  { name="bobbyely", email="robert.w.ely@gmail.com" },
+]
+requires-python = ">=3.12"

@@ -1,0 +1,29 @@
+[project]
+authors = ["bobbyely"]
+channels = ["conda-forge"]
+name = "the-sauce-bottle"
+platforms = ["linux-64"]
+version = "0.1.0"
+description = "Tracking Australian politicians and what they are saying."
+
+[tasks]
+# Task to run the FastAPI development server
+dev = "uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000"
+lint = "ruff check ."
+format = "ruff format ."
+test = "pytest"
+
+[dependencies]
+python = "3.12.*"
+fastapi = ">=0.115.12,<0.116"
+pydantic = ">=2.11.4,<3"
+asyncpg = ">=0.30.0,<0.31"
+alembic = ">=1.16.1,<2"
+python-dotenv = ">=1.1.0,<2"
+pytest = ">=8.4.0,<9"
+pytest-asyncio = ">=1.0.0,<2"
+httpx = ">=0.28.1,<0.29"
+ruff = ">=0.11.12,<0.12"
+
+[pypi-dependencies]
+uvicorn = { version = "*", extras = ["standard"] }

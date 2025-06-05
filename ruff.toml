@@ -1,0 +1,59 @@
+# Select a base set of rules.
+
+target-version = "py312"
+line-length = 140
+indent-width = 4
+
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pixi", # Exclude pixi's environment directory
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+    "*/migrations/*", # Example: Django migrations
+    "*/alembic/versions/*", # Alembic migrations
+]
+
+[lint]
+
+select = [
+    "E", "F", "W", "I", "UP", "C90", "N", "D", "ANN", "S",
+    "BLE", "B", "A", "COM", "LOG", "PT", "ISC", "T20",
+    "PYI", "Q", "SIM", "TID", "ARG", "RUF",
+]
+ignore = [
+    "D100", "D101", "D102", "D103", "D104", "D105", "D107", "ANN201"
+]
+
+[lint.mccabe]
+max-complexity = 10
+
+[lint.pydocstyle]
+convention = "google"
+
+[lint.isort]
+known-first-party = ["the-sauce-bottle"]
+
+[format]
+quote-style = "double"
+indent-style = "space"
+
+line-ending = "lf"
+# docstring-code-format = false # (Optional, default is false)
+# docstring-code-line-length = "dynamic" # (Optional, default is dynamic)
+# skip-magic-trailing-comma = false # (Optional, default is false)

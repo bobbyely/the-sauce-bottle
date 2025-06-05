@@ -1,0 +1,20 @@
+
+# pixi environments
+.pixi
+*.egg-info
+.direnv/
+
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+pip-freeze.txt
+pip-requirements.txt
+.DS_Store
+
