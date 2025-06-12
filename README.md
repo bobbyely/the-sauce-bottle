@@ -5,4 +5,11 @@
 This is a work in progress. 
 
 # Setup
-There really isn't a setup yet. Come back later.
+
+- Make sure you have installed `pixi`
+
+
+# Run the backend
+From the parent directory:
+
+`pixi run backend-dev`

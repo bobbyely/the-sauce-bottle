@@ -27,6 +27,7 @@ exclude = [
     "venv",
     "*/migrations/*", # Example: Django migrations
     "*/alembic/versions/*", # Alembic migrations
+    "backend/tests/*",
 ]
 
 [lint]
@@ -37,7 +38,9 @@ select = [
     "PYI", "Q", "SIM", "TID", "ARG", "RUF",
 ]
 ignore = [
-    "D100", "D101", "D102", "D103", "D104", "D105", "D107", "ANN201"
+    "D100", "D101", "D102", "D103", "D104", "D105", "D107", "ANN201",
+    "ANN204","N805", "TID252", "ANN001", "UP007", "UP006", "W293", "D415",
+    "B008",
 ]
 
 [lint.mccabe]
@@ -48,6 +51,9 @@ convention = "google"
 
 [lint.isort]
 known-first-party = ["the-sauce-bottle"]
+
+[lint.per-file-ignores]
+"__init__.py" = ["E402", "F401"]
 
 [format]
 quote-style = "double"
