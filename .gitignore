@@ -1,3 +1,6 @@
+# general
+.ruff_cache
+.pytest_cache
 
 # pixi environments
 .pixi
@@ -18,3 +21,8 @@ pip-freeze.txt
 pip-requirements.txt
 .DS_Store
 
+# Backend
+backend/.env
+
+# env
+.env*
