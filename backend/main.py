@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI(
     title="The Sauce Bottle API",
     description="Australian political statement tracking and analysis.",
-    version="0.1.0"
+    version="0.1.0",
 )
 
 # Configure CORS
