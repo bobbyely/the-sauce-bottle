@@ -32,3 +32,19 @@ There are a couple of health endpoints currently setup (API/health)
 You can visit, once backend-dev is running, with:
 [health](http://localhost:8000/health)
 [db-health](http://localhost:8000/db-health)
+
+# DB Migration examples
+For making changes to database models etc, run a migration
+
+```bash
+# must be from project root (make sure docker compose up -d has run)
+alembic -c backend/alembic.ini revision --autogenerate -m "create politician table"
+
+# Check the migration in alembic/versions/xxxxxx_create_some_table.py
+
+# run the migration
+alembic -c backend/alembic.ini upgrade head
+
+# PSQL db
+psql -h localhost -U postgres saucebottle  # add postgress password postgres
+```
