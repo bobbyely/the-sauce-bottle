@@ -21,8 +21,8 @@ I have completed -- ### Stage 4
 
 ### Phase 1: Backend Foundation
 - [x] **Stage 1**: Basic FastAPI Project Structure
-- [ ] **Stage 2**: Database Connection Setup  
-- [ ] **Stage 3**: Politician Model and Table
+- [x] **Stage 2**: Database Connection Setup  
+- [x] **Stage 3**: Politician Model and Table
 - [ ] **Stage 4**: Statement Model and Table
 - [ ] **Stage 5**: Pydantic Schemas
 - [ ] **Stage 6**: Politicians CRUD Operations
@@ -110,6 +110,38 @@ I have completed -- ### Stage 4
 - No errors on startup or endpoint access
 
 **Next Stage Dependencies**: Enables database connection setup (Stage 2)
+
+**Stage 2**: Database Connection Setup  
+**Completion Date**: 2025-06-14  
+**Time Taken**: ~1-2 hours  
+**Key Files Created**: 
+- backend/app/database.py
+- backend/app/config.py
+- docker-compose.yml
+
+**Notes**: 
+- SQLAlchemy and PostgreSQL connection configured
+- Docker Compose for database
+- Connection tested and working
+
+**Next Stage Dependencies**: Enables model/migration work (Stage 3)
+
+**Stage 3**: Politician Model and Table  
+**Completion Date**: 2025-06-15  
+**Time Taken**: ~1-2 hours  
+**Key Files Created**: 
+- backend/app/models/politician.py
+- backend/app/models/__init__.py
+- backend/alembic/versions/b335ac7d5b3f_create_politician_table.py
+
+**Notes**: 
+- Politician SQLAlchemy model created
+- Alembic migration generated and applied
+- Table verified in database
+- Environment variable and .env Alembic config tested
+- Troubleshooting: Ensured correct DB name in .env and psql
+
+**Next Stage Dependencies**: Enables statement model and further API development (Stage 4)
 
 ---
 
