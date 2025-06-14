@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from backend.app.api.health import router as health_router
+
 # Create FastAPI applicaiton instance
 app = FastAPI(
     title="The Sauce Bottle API",
@@ -17,6 +19,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# health endpoints
+app.include_router(health_router)
+
 # Root endpoint
 @app.get("/")
 async def root():
@@ -27,14 +32,7 @@ async def root():
         "status": "running",
     }
 
-# Health check endpoint
-@app.get("/health")
-async def health_check():
-    """Health check endpoint for monitoring."""
-    return {
-        "status": "healthy",
-        "message": "API is running successfully",
-    }
+
 
 # Run the application (for development)
 if __name__ == "__main__":
