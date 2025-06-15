@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Date, DateTime, Integer, String, func
+from sqlalchemy.orm import relationship
 
 from backend.app.database import Base
 
@@ -27,4 +28,6 @@ class Politician(Base):
     profile_picture_url = Column(String, nullable=True)  # URL to the politician's profile picture
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+
+    statements = relationship("Statement", back_populates="politician")
 

@@ -23,7 +23,7 @@ I have completed -- ### Stage 4
 - [x] **Stage 1**: Basic FastAPI Project Structure
 - [x] **Stage 2**: Database Connection Setup  
 - [x] **Stage 3**: Politician Model and Table
-- [ ] **Stage 4**: Statement Model and Table
+- [x] **Stage 4**: Statement Model and Table
 - [ ] **Stage 5**: Pydantic Schemas
 - [ ] **Stage 6**: Politicians CRUD Operations
 - [ ] **Stage 7**: Politicians API Endpoints
@@ -142,6 +142,23 @@ I have completed -- ### Stage 4
 - Troubleshooting: Ensured correct DB name in .env and psql
 
 **Next Stage Dependencies**: Enables statement model and further API development (Stage 4)
+
+**Stage 4**: Statement Model and Table  
+**Completion Date**: 2025-06-15  
+**Time Taken**: ~1-2 hours  
+**Key Files Created**: 
+- backend/app/models/statement.py
+- backend/app/models/__init__.py (updated)
+- backend/alembic/versions/[hash]_create_statement_table.py
+
+**Notes**: 
+- Statement SQLAlchemy model created with all required fields and relationship to Politician
+- Politician model updated with statements relationship
+- Alembic migration generated and applied
+- Table and foreign key verified in database
+- Troubleshooting: Resolved Alembic autogenerate issues by ensuring model imports and DB sync
+
+**Next Stage Dependencies**: Enables schema and API development (Stage 5)
 
 ---
 
