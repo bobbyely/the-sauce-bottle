@@ -47,4 +47,15 @@ alembic -c backend/alembic.ini upgrade head
 
 # PSQL db
 psql -h localhost -U postgres saucebottle  # add postgress password postgres
+(psql) \dt  # view tables, confirm tables exist
+```
+
+# Tests
+Run all tests with the following:
+
+```bash
+pixi run test
+
+# specifically for backend
+pixi run test-backend
 ```

@@ -10,9 +10,10 @@ description = "Tracking Australian politicians and what they are saying."
 # Task to run the FastAPI development server
 backend-dev = "uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000"
 test-db = "python -m backend.app.db_test"
+test-backend = "PYTHONPATH=. pytest backend/tests/"
 lint = "ruff check ."
 format = "ruff format ."
-test = "pytest"
+test = "PYTHONPATH=. pytest"
 alembic = "alembic"
 
 [dependencies]
