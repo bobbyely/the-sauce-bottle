@@ -1,4 +1,4 @@
-I have completed -- ### Stage 4
+I have completed -- ### Stage 6
 
 
 # The Sauce Bottle - Development Progress Tracker
@@ -24,8 +24,8 @@ I have completed -- ### Stage 4
 - [x] **Stage 2**: Database Connection Setup  
 - [x] **Stage 3**: Politician Model and Table
 - [x] **Stage 4**: Statement Model and Table
-- [ ] **Stage 5**: Pydantic Schemas
-- [ ] **Stage 6**: Politicians CRUD Operations
+- [x] **Stage 5**: Pydantic Schemas
+- [x] **Stage 6**: Politicians CRUD Operations
 - [ ] **Stage 7**: Politicians API Endpoints
 - [ ] **Stage 8**: Statements CRUD Operations
 - [ ] **Stage 9**: Statements API Endpoints
@@ -159,6 +159,41 @@ I have completed -- ### Stage 4
 - Troubleshooting: Resolved Alembic autogenerate issues by ensuring model imports and DB sync
 
 **Next Stage Dependencies**: Enables schema and API development (Stage 5)
+
+**Stage 5**: Pydantic Schemas  
+**Completion Date**: 2025-06-15  
+**Time Taken**: ~1-2 hours  
+**Key Files Created**: 
+- backend/app/schemas/politician.py
+- backend/app/schemas/statement.py
+- backend/app/schemas/__init__.py
+
+**Notes**: 
+- Pydantic schemas created for Politician and Statement (Base, Create, Update, Response)
+- Schemas tested for validation and serialization
+- Updated to Pydantic v2 config style (`model_config = {"from_attributes": True}`)
+- All tests passing
+- Note: Pydantic V2 requires migration from `class Config`/`orm_mode` to `model_config`/`from_attributes`
+
+**Next Stage Dependencies**: Enables CRUD and API logic (Stage 6)
+
+---
+
+**Stage 6**: Politicians CRUD Operations  
+**Completion Date**: 2025-06-15  
+**Time Taken**: ~1-2 hours  
+**Key Files Created**: 
+- backend/app/crud/politician.py
+- backend/app/crud/__init__.py
+- backend/tests/test_crud_politician.py
+
+**Notes**: 
+- CRUD functions implemented for Politician (get, get_multi, create, update, remove)
+- Unit tests written and passing for CRUD logic
+- Updated to use SQLAlchemy 2.x API (`Session.get`)
+- Ready for API endpoint integration
+
+**Next Stage Dependencies**: Enables Politicians API endpoints (Stage 7)
 
 ---
 

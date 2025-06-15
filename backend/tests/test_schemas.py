@@ -1,8 +1,9 @@
 import pytest
 from pydantic import ValidationError
-from backend.app.schemas.politician import Politician, PoliticianCreate
+from backend.app.schemas.politician import PoliticianCreate
 from backend.app.schemas.statement import Statement, StatementCreate
-from datetime import date, datetime
+from datetime import datetime
+
 
 def test_politician_create_valid():
     data = {"name": "John Doe", "party": "Independent"}
@@ -10,17 +11,20 @@ def test_politician_create_valid():
     assert schema.name == "John Doe"
     assert schema.party == "Independent"
 
+
 def test_politician_create_missing_name():
     data = {"party": "Independent"}
     with pytest.raises(ValidationError) as exc_info:
         PoliticianCreate(**data)
     assert "Field required" in str(exc_info.value)
 
+
 def test_statement_create_valid():
     data = {"content": "This is a statement.", "politician_id": 1}
     schema = StatementCreate(**data)
     assert schema.content == "This is a statement."
     assert schema.politician_id == 1
+
 
 def test_statement_create_missing_content():
     data = {"politician_id": 1}

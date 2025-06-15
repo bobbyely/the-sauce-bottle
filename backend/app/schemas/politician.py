@@ -14,10 +14,10 @@ class PoliticianBase(BaseModel):
     state: Optional[str] = None
     date_elected: Optional[date] = None
     sitting_status: Optional[str] = None
-    is_cabient_minister: Optional[int] = None
+    is_cabinet_minister: Optional[int] = None
     is_shadow_minister: Optional[int] = None
     previous_positions: Optional[str] = None
-    website: Optional[str] = None
+    website_url: Optional[str] = None
     social_media_links: Optional[str] = None
     statement_count: Optional[int] = 0
     tags: Optional[str] = None
@@ -49,5 +49,4 @@ class Politician(PoliticianBase):
     created_at: Optional[datetime]
     updated_at: Optional[datetime]
 
-    class Config:
-        orm_mode = True
+    model_config = {"from_attributes": True}
