@@ -1,8 +1,12 @@
 # The Sauce Bottle
 
-> Fair shake of the sauce bottle! Keep the bastards honest.
+The Sauce Bottle is an open-source platform for tracking, analyzing, and exposing statements made by Australian politicians. It combines a FastAPI backend (Python, SQLAlchemy, PostgreSQL) and a Vue.js frontend to collect, organize, and present political statements. The system leverages AI/LLM services to summarize, detect contradictions, and flag misinformation or hypocrisy in statements. The project is designed for transparency, accountability, and public engagement, with a modular architecture supporting robust CRUD operations, authentication, and future AI-powered features. Ideal for researchers, journalists, and civic tech enthusiasts seeking to monitor political discourse in Australia.
 
-This is a work in progress. 
+- This project is a **work in progress**. 
+- This project is intended for **educational purposes**. 
+- Any analysis carried out by LLMs should be checked for accuracy.
+
+> Fair shake of the sauce bottle! Keep the bastards honest.
 
 # Setup
 
