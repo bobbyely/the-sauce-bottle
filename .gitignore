@@ -26,3 +26,21 @@ backend/.env
 
 # env
 .env*
+
+# Test
+.pytest_cache/
+.coverage
+coverage.xml
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Build dist
+build/
+dist/
+*.egg-info/
+
+# Claude
+CLAUDE.md

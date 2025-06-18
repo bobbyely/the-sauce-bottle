@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from backend.app.api.endpoints import politicians
 from backend.app.api.health import router as health_router
 
 # Create FastAPI applicaiton instance
@@ -21,6 +22,9 @@ app.add_middleware(
 
 # health endpoints
 app.include_router(health_router)
+
+# politicians endpoints
+app.include_router(politicians.router, prefix="/api")
 
 # Root endpoint
 @app.get("/")

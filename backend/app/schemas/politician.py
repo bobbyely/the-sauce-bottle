@@ -35,7 +35,7 @@ class PoliticianUpdate(PoliticianBase):
     state: Optional[str] = None
     date_elected: Optional[date] = None
     sitting_status: Optional[str] = None
-    is_cabient_minister: Optional[int] = None
+    is_cabinet_minister: Optional[int] = None
     is_shadow_minister: Optional[int] = None
     previous_positions: Optional[str] = None
     website: Optional[str] = None
