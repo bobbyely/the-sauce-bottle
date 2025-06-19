@@ -1,2 +1,1 @@
-from . import politician
-
+from . import politician, statement

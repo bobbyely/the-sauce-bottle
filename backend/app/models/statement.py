@@ -12,6 +12,7 @@ class Statement(Base):
     """
 
     __tablename__ = "statements"
+    __table_args__ = {'extend_existing': True}
 
     id = Column(Integer, primary_key=True, index=True)
     content = Column(Text, nullable=False)  # The main text of the statement
