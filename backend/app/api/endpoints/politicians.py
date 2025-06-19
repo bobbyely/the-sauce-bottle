@@ -1,11 +1,12 @@
-from typing import List
+from typing import List, Optional
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 
 from backend.app.api.deps import get_db
-from backend.app.crud import politician as crud_politician
+from backend.app.crud import politician as crud_politician, statement as crud_statement
 from backend.app.schemas.politician import Politician, PoliticianCreate, PoliticianUpdate
+from backend.app.schemas.statement import Statement
 
 router = APIRouter(prefix="/politicians", tags=["politicians"])
 
@@ -68,3 +69,31 @@ def delete_politician(
             detail="Politician not found",
         )
     return db_politician
+
+@router.get("/{politician_id}/statements", response_model=List[Statement])
+def read_politician_statements(
+    politician_id: int,
+    skip: int = 0,
+    limit: int = 100,
+    date_from: Optional[str] = Query(None, description="Filter statements from this date (YYYY-MM-DD)"),
+    date_to: Optional[str] = Query(None, description="Filter statements to this date (YYYY-MM-DD)"),
+    db: Session = Depends(get_db),
+) -> List[Statement]:
+    """Get all statements for a specific politician with optional date filtering."""
+    # Verify politician exists
+    politician = crud_politician.get(db, politician_id=politician_id)
+    if not politician:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Politician with id {politician_id} not found",
+        )
+    
+    statements = crud_statement.get_multi_by_politician(
+        db,
+        politician_id=politician_id,
+        skip=skip,
+        limit=limit,
+        date_from=date_from,
+        date_to=date_to,
+    )
+    return statements
