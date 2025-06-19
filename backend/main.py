@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 
 from backend.app.api.endpoints import politicians
 from backend.app.api.health import router as health_router
@@ -19,6 +21,14 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Mount static files
+app.mount("/static", StaticFiles(directory="backend/static"), name="static")
+
+# Favicon route
+@app.get("/favicon.ico")
+async def favicon():
+    return FileResponse("backend/static/favicon.ico")
 
 # health endpoints
 app.include_router(health_router)

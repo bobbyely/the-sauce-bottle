@@ -27,7 +27,7 @@ I have completed -- ### Stage 6
 - [x] **Stage 5**: Pydantic Schemas
 - [x] **Stage 6**: Politicians CRUD Operations
 - [x] **Stage 7**: Politicians API Endpoints
-- [ ] **Stage 8**: Statements CRUD Operations
+- [x] **Stage 8**: Statements CRUD Operations
 - [ ] **Stage 9**: Statements API Endpoints
 - [ ] **Stage 10**: API Router Integration
 - [ ] **Stage 11**: Basic API Error Handling
@@ -217,24 +217,48 @@ I have completed -- ### Stage 6
 
 ---
 
+**Stage 8**: Statements CRUD Operations  
+**Completion Date**: 2025-06-19  
+**Time Taken**: ~1-2 hours  
+**Key Files Created**: 
+- backend/app/crud/statement.py
+- backend/app/crud/base.py (added)
+- backend/app/crud/__init__.py (updated)
+
+**Notes**: 
+- Implemented full CRUD functions for Statement (get, get_multi, create, update, remove)
+- Added special functions for filtering by politician and date ranges
+- Created base CRUD class for potential future reuse
+- Fixed import path issues (changed from `app.` to `backend.app.`)
+- Fixed SQLAlchemy table redefinition errors with `extend_existing=True`
+- Added favicon support to eliminate 404 errors in logs
+- All tests passing after fixes
+
+**Next Stage Dependencies**: Enables Statements API endpoints (Stage 9)
+
+---
+
 ## Current Focus
 
 ### Active Stage
-**Stage Number**: 1  
-**Stage Title**: Basic FastAPI Project Structure  
-**Started**: [Date]  
-**Target Completion**: [Date]  
+**Stage Number**: 9  
+**Stage Title**: Statements API Endpoints  
+**Started**: 2025-06-19  
+**Target Completion**: 2025-06-19  
 
 ### Current Objectives
-- Set up minimal FastAPI application with proper project structure
-- Create basic health check endpoint
-- Ensure FastAPI server starts correctly
+- Create REST API endpoints for Statements
+- Handle politician relationships in endpoints
+- Implement filtering by politician
+- Add proper error handling and validation
+- Integrate with main FastAPI router
 
 ### Today's Tasks
-- [ ] Create `backend/main.py` with FastAPI app
-- [ ] Set up project structure with `app/` package
-- [ ] Implement `/health` endpoint
-- [ ] Test server startup
+- [ ] Create `backend/app/api/endpoints/statements.py`
+- [ ] Implement all CRUD endpoints for statements
+- [ ] Add politician relationship validation
+- [ ] Update main.py to include statements router
+- [ ] Test all endpoints manually
 
 ### Blockers/Issues
 *[Note any current problems or blockers]*

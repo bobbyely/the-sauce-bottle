@@ -8,6 +8,7 @@ class Politician(Base):
     """SQLAlchemy model for Australian politicians."""
 
     __tablename__ = "politicians"
+    __table_args__ = {'extend_existing': True}
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, nullable=False)
