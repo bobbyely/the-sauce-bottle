@@ -1,10 +1,11 @@
 from typing import List, Optional
 
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
 
 from backend.app import crud, schemas
 from backend.app.api import deps
+from backend.app.core.exceptions import StatementNotFoundError, PoliticianNotFoundError
 
 router = APIRouter(tags=["statements"])
 
@@ -42,10 +43,7 @@ def create_statement(
     # Verify politician exists
     politician = crud.politician.get(db, politician_id=statement_in.politician_id)
     if not politician:
-        raise HTTPException(
-            status_code=404,
-            detail=f"Politician with id {statement_in.politician_id} not found",
-        )
+        raise PoliticianNotFoundError(statement_in.politician_id)
     
     statement = crud.statement.create(db=db, statement=statement_in)
     return statement
@@ -60,7 +58,7 @@ def read_statement(
     """Get statement by ID."""
     statement = crud.statement.get(db=db, statement_id=statement_id)
     if not statement:
-        raise HTTPException(status_code=404, detail="Statement not found")
+        raise StatementNotFoundError(statement_id)
     return statement
 
 
@@ -74,16 +72,13 @@ def update_statement(
     """Update a statement."""
     statement = crud.statement.get(db=db, statement_id=statement_id)
     if not statement:
-        raise HTTPException(status_code=404, detail="Statement not found")
+        raise StatementNotFoundError(statement_id)
     
     # If updating politician_id, verify new politician exists
     if statement_in.politician_id is not None:
         politician = crud.politician.get(db, politician_id=statement_in.politician_id)
         if not politician:
-            raise HTTPException(
-                status_code=404,
-                detail=f"Politician with id {statement_in.politician_id} not found",
-            )
+            raise PoliticianNotFoundError(statement_in.politician_id)
     
     statement = crud.statement.update(db=db, db_obj=statement, obj_in=statement_in)
     return statement
@@ -98,7 +93,7 @@ def delete_statement(
     """Delete a statement."""
     statement = crud.statement.get(db=db, statement_id=statement_id)
     if not statement:
-        raise HTTPException(status_code=404, detail="Statement not found")
+        raise StatementNotFoundError(statement_id)
     
     statement = crud.statement.remove(db=db, statement_id=statement_id)
     return statement

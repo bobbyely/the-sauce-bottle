@@ -1,6 +1,6 @@
 from typing import List, Optional
 
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, Depends, Query, status
 from sqlalchemy.orm import Session
 
 from backend.app.api.deps import get_db
@@ -8,6 +8,7 @@ from backend.app.crud import politician as crud_politician
 from backend.app.crud import statement as crud_statement
 from backend.app.schemas.politician import Politician, PoliticianCreate, PoliticianUpdate
 from backend.app.schemas.statement import Statement
+from backend.app.core.exceptions import PoliticianNotFoundError
 
 router = APIRouter(tags=["politicians"])
 
@@ -28,10 +29,7 @@ def read_politician(
     """Retrieve a politician by ID."""
     politician = crud_politician.get(db, politician_id)
     if not politician:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Politician not found",
-        )
+        raise PoliticianNotFoundError(politician_id)
     return politician
 
 @router.post("/", response_model=Politician, status_code=status.HTTP_201_CREATED)
@@ -51,10 +49,7 @@ def update_politician(
     """Update an existing politician."""
     db_politician = crud_politician.get(db, politician_id)
     if not db_politician:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Politician not found",
-        )
+        raise PoliticianNotFoundError(politician_id)
     return crud_politician.update(db, db_obj=db_politician, obj_in=politician_in)
 
 @router.delete("/{politician_id}", response_model=Politician)
@@ -65,10 +60,7 @@ def delete_politician(
     """Delete a politician by ID."""
     db_politician = crud_politician.remove(db, politician_id)
     if not db_politician:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Politician not found",
-        )
+        raise PoliticianNotFoundError(politician_id)
     return db_politician
 
 @router.get("/{politician_id}/statements", response_model=List[Statement])
@@ -84,10 +76,7 @@ def read_politician_statements(
     # Verify politician exists
     politician = crud_politician.get(db, politician_id=politician_id)
     if not politician:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Politician with id {politician_id} not found",
-        )
+        raise PoliticianNotFoundError(politician_id)
     
     statements = crud_statement.get_multi_by_politician(
         db,
