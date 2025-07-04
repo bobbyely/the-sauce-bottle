@@ -17,17 +17,25 @@ test-coverage-html = "PYTHONPATH=. pytest backend/tests/ --cov=backend.app --cov
 lint = "ruff check ."
 format = "ruff format ."
 test = "PYTHONPATH=. pytest"
-alembic = "alembic"
+
+# Database migrations with Yoyo
+migrate = "bash -c 'source .env && yoyo apply --database $DATABASE_URL backend/migrations/ --batch'"
+migrate-rollback = "bash -c 'source .env && yoyo rollback --database $DATABASE_URL backend/migrations/'"
+migrate-status = "bash -c 'source .env && yoyo list --database $DATABASE_URL backend/migrations/'"
+create-db = "python -c 'from backend.app.database import create_tables; create_tables()'"
+reset-db = "bash -c 'source .env && yoyo rollback --database $DATABASE_URL backend/migrations/ --all && yoyo apply --database $DATABASE_URL backend/migrations/'"
 
 
 [dependencies]
 python = "3.12.*"
 fastapi = ">=0.115.12,<0.116"
+sqlalchemy = "*"
 pydantic = "*"
 pydantic-settings = "*"
 asyncpg = "*"
 psycopg2-binary = "*"
-alembic = "*"
+yoyo-migrations = "*"
+setuptools = "*"
 python-dotenv = "*"
 pytest = "*"
 pytest-asyncio = "*"

@@ -4,7 +4,8 @@
 An app to track Australian politicians' statements and identify hypocrisy, lies, and misinformation using AI assistance. Built with Python FastAPI backend, Vue.js frontend, and LLM integration.
 
 ## Key Architecture Decisions
-- **Backend**: FastAPI with SQLAlchemy and PostgreSQL
+- **Backend**: FastAPI with SQLAlchemy and SQLite (development) / PostgreSQL (production)
+- **Database Migrations**: Yoyo migrations (replaced Alembic for reliability)
 - **Frontend**: Vue.js with Axios for API calls
 - **AI Integration**: Direct LLM API calls (OpenAI/Anthropic/Google)
 - **Development**: Incremental stages, 1-2 hours each
@@ -13,6 +14,14 @@ An app to track Australian politicians' statements and identify hypocrisy, lies,
 ---
 
 ## PHASE 1: BACKEND FOUNDATION (Stages 1-15)
+
+**Current Status: Stage 10 Complete** ✅  
+**Next: Stage 11 - Basic API Error Handling**
+
+**Key Improvements Made:**
+- Replaced Alembic with Yoyo migrations for better reliability
+- SQLite development setup eliminates Docker dependency issues
+- Production-ready migration system with simple SQL approach
 
 ### Stage 1: Basic FastAPI Project Structure
 - **Objective**: Set up minimal FastAPI application with proper project structure
@@ -110,15 +119,18 @@ An app to track Australian politicians' statements and identify hypocrisy, lies,
 - **Success Criteria**: Can perform CRUD operations on statements via API
 - **Key Code Components**: FastAPI route handlers with politician relationship handling
 
-### Stage 10: API Router Integration
+### Stage 10: API Router Integration ✅ **COMPLETED**
 - **Objective**: Organize all API endpoints under a common router
 - **Prerequisites**: Stage 9
 - **Time Estimate**: 1 hour
 - **Deliverables**:
-  - `backend/app/api/api.py` - Main API router
-  - Updated `main.py` to include API router
-- **Success Criteria**: All endpoints accessible under `/api/v1/` prefix
+  - ✅ `backend/app/api/api.py` - Main API router
+  - ✅ Updated `main.py` to include API router
+  - ✅ Migrated from Alembic to Yoyo migrations for reliability
+  - ✅ SQLite development setup (no Docker dependency)
+- **Success Criteria**: All endpoints accessible under `/api/v1/` prefix ✅
 - **Key Code Components**: APIRouter configuration and inclusion
+- **Migration System**: Yoyo migrations with SQL-based approach
 
 ### Stage 11: Basic API Error Handling
 - **Objective**: Implement consistent error responses and exception handling

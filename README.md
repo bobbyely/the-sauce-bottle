@@ -21,8 +21,27 @@ From the parent directory:
 
 `pixi run backend-dev`
 
-### Start the database
+### Database Setup
 
+**Development Database (SQLite):**
+The project now uses SQLite for development - no Docker required!
+
+**Migration Commands:**
+```bash
+# Apply all pending migrations
+pixi run migrate
+
+# Check migration status  
+pixi run migrate-status
+
+# Rollback last migration
+pixi run migrate-rollback
+
+# Reset database completely
+pixi run reset-db
+```
+
+**Optional: PostgreSQL with Docker (for production testing):**
 ```bash
 # start it up
 docker-compose up -d
@@ -35,27 +54,43 @@ docker-compose down
 ```
 
 ### Health endpoints
-There are a couple of health endpoints currently setup (API/health)
-You can visit, once backend-dev is running, with:
-[health](http://localhost:8000/health)
-[db-health](http://localhost:8000/db-health)
+Health endpoints are available under `/api/`:
+- [API Health](http://localhost:8000/api/health)
+- [Database Health](http://localhost:8000/api/health/db)
 
-### DB Migration examples
-For making changes to database models etc, run a migration
+### API Endpoints
+All API endpoints are now organized under `/api/v1/`:
+- [Politicians API](http://localhost:8000/api/v1/politicians/)
+- [Statements API](http://localhost:8000/api/v1/statements/)
+- [API Documentation](http://localhost:8000/api/docs)
 
-```bash
-# must be from project root (make sure docker compose up -d has run)
-alembic -c backend/alembic.ini revision --autogenerate -m "create politician table"
+### Creating New Migrations
 
-# Check the migration in alembic/versions/xxxxxx_create_some_table.py
+The project uses **Yoyo migrations** for reliable database schema management.
 
-# run the migration
-alembic -c backend/alembic.ini upgrade head
+**To create a new migration:**
+1. Create a new file in `backend/migrations/` with format: `XXX_description.py`
+2. Write the migration using Yoyo's step format:
 
-# PSQL db
-psql -h localhost -U postgres saucebottle  # add postgress password postgres
-(psql) \dt  # view tables, confirm tables exist
+```python
+# backend/migrations/003_add_new_column.py
+from yoyo import step
+
+steps = [
+    step(
+        "ALTER TABLE politicians ADD COLUMN email VARCHAR",  # Forward
+        "ALTER TABLE politicians DROP COLUMN email"          # Rollback
+    )
+]
 ```
+
+3. Apply the migration: `pixi run migrate`
+
+**Benefits over Alembic:**
+- Simple SQL-based approach
+- No autogenerate failures  
+- Easy to review and understand
+- Reliable rollbacks
 
 ## Frontend
 Coming soon...

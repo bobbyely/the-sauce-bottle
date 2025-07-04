@@ -26,3 +26,12 @@ def get_db():
         db.close()
 # This function can be used in FastAPI routes to get a database session
 
+# Helper functions for database management
+def create_tables():
+    """Create all tables from models (useful for development)."""
+    Base.metadata.create_all(bind=engine)
+
+def drop_tables():
+    """Drop all tables (useful for testing/reset)."""
+    Base.metadata.drop_all(bind=engine)
+
