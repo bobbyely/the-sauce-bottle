@@ -41,7 +41,38 @@ pixi run migrate-rollback
 pixi run reset-db
 ```
 
-**Optional: PostgreSQL with Docker (for production testing):**
+### Database Configuration
+
+The project supports both **SQLite** (development) and **PostgreSQL** (production):
+
+**SQLite (Default):**
+- Zero setup required - just run the app!
+- Perfect for development and testing
+- Database file: `saucebottle.db`
+
+**PostgreSQL with Neon (Recommended for production testing):**
+1. Sign up for a free Neon account at https://neon.tech
+2. Create a new project and get your connection string
+3. Add to your `.env` file:
+   ```
+   POSTGRES_DATABASE_URL=postgresql+asyncpg://username:password@host/database?sslmode=require
+   ```
+4. Switch between databases easily:
+   ```bash
+   # Test current database connection
+   pixi run db-test
+   
+   # Show database configuration
+   pixi run db-info
+   
+   # Switch to PostgreSQL
+   pixi run db-postgres
+   
+   # Switch back to SQLite
+   pixi run db-sqlite
+   ```
+
+**Optional: PostgreSQL with Docker (if you prefer local PostgreSQL):**
 ```bash
 # start it up
 docker-compose up -d
@@ -55,8 +86,10 @@ docker-compose down
 
 ### Health endpoints
 Health endpoints are available under `/api/`:
-- [API Health](http://localhost:8000/api/health)
-- [Database Health](http://localhost:8000/api/health/db)
+- [API Health](http://localhost:8000/api/health) - Basic health check
+- [Database Health](http://localhost:8000/api/health/db) - Database connectivity
+- [Detailed DB Health](http://localhost:8000/api/health/db/detailed) - Table info and statistics
+- [Migration Status](http://localhost:8000/api/health/db/migrations) - Check migration status
 
 ### API Endpoints
 All API endpoints are now organized under `/api/v1/`:

@@ -1,18 +1,5 @@
 """Configuration settings for the application."""
-from pydantic_settings import BaseSettings
+# Re-export from core.config for backward compatibility
+from backend.app.core.config import Settings, settings, get_settings
 
-
-class Settings(BaseSettings):
-    """Application settings."""
-    
-    # Database configuration
-    DATABASE_URL: str
-
-    # add other requirements here
-    # secret key, debug bool etc.
-
-    class Config:
-        """Configuration for the settings model."""
-        env_file = ".env"  # Load environment variables from .env file
-
-settings = Settings()
+__all__ = ["Settings", "settings", "get_settings"]

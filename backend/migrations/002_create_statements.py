@@ -8,7 +8,7 @@ steps = [
         # Forward migration
         """
         CREATE TABLE statements (
-            id INTEGER PRIMARY KEY,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
             content TEXT NOT NULL,
             date_made DATE,
             politician_id INTEGER NOT NULL,
@@ -18,8 +18,8 @@ steps = [
             source_type VARCHAR(50),
             source_name VARCHAR(255),
             review_status VARCHAR(50) DEFAULT 'pending',
-            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-            updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (politician_id) REFERENCES politicians (id)
         )
         """,

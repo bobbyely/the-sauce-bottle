@@ -8,7 +8,7 @@ description = "Tracking Australian politicians and what they are saying."
 
 [tasks]
 # Task to run the FastAPI development server
-backend-dev = "bash -c 'source .env && uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000'"
+backend-dev = "bash -c 'unset DATABASE_URL && source .env && uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000'"
 start-backend = "./scripts/start-backend.sh"
 test-db = "python -m backend.app.db_test"
 test-backend = "PYTHONPATH=. pytest backend/tests/"
@@ -18,12 +18,27 @@ lint = "ruff check ."
 format = "ruff format ."
 test = "PYTHONPATH=. pytest"
 
-# Database migrations with Yoyo
-migrate = "bash -c 'source .env && yoyo apply --database $DATABASE_URL backend/migrations/ --batch'"
-migrate-rollback = "bash -c 'source .env && yoyo rollback --database $DATABASE_URL backend/migrations/'"
-migrate-status = "bash -c 'source .env && yoyo list --database $DATABASE_URL backend/migrations/'"
+# Database migrations with Yoyo (using sync URLs)
+migrate = "bash -c 'source .env && python -c \"from backend.app.core.config import settings; import os; os.system(f\\\"yoyo apply --database {settings.sync_database_url} backend/migrations/ --batch\\\")\"'"
+migrate-rollback = "bash -c 'source .env && python -c \"from backend.app.core.config import settings; import os; os.system(f\\\"yoyo rollback --database {settings.sync_database_url} backend/migrations/\\\")\"'"
+migrate-status = "bash -c 'source .env && python -c \"from backend.app.core.config import settings; import os; os.system(f\\\"yoyo list --database {settings.sync_database_url} backend/migrations/\\\")\"'"
 create-db = "python -c 'from backend.app.database import create_tables; create_tables()'"
-reset-db = "bash -c 'source .env && yoyo rollback --database $DATABASE_URL backend/migrations/ --all && yoyo apply --database $DATABASE_URL backend/migrations/'"
+reset-db = "bash -c 'source .env && python -c \"from backend.app.core.config import settings; import os; os.system(f\\\"yoyo rollback --database {settings.sync_database_url} backend/migrations/ --all\\\"); os.system(f\\\"yoyo apply --database {settings.sync_database_url} backend/migrations/ --batch\\\")\"'"
+
+# Database utilities
+db-test = "python -m backend.app.db_utils test"
+db-info = "python -m backend.app.db_utils info"
+db-sqlite = "python -m backend.app.db_utils sqlite"
+db-postgres = "python -m backend.app.db_utils postgres"
+
+# PostgreSQL specific migrations
+migrate-postgres = "bash -c 'source .env && export DATABASE_URL=$POSTGRES_SYNC_URL && yoyo apply --database $DATABASE_URL backend/migrations/ --batch'"
+migrate-postgres-status = "bash -c 'source .env && export DATABASE_URL=$POSTGRES_SYNC_URL && yoyo list --database $DATABASE_URL backend/migrations/'"
+migrate-postgres-rollback = "bash -c 'source .env && export DATABASE_URL=$POSTGRES_SYNC_URL && yoyo rollback --database $DATABASE_URL backend/migrations/'"
+reset-postgres = "bash -c 'source .env && export DATABASE_URL=$POSTGRES_SYNC_URL && yoyo rollback --database $DATABASE_URL backend/migrations/ --all --batch && yoyo apply --database $DATABASE_URL backend/migrations/ --batch'"
+
+# SQLite specific commands (using default DATABASE_URL)
+reset-sqlite = "bash -c 'rm -f saucebottle.db && pixi run migrate'"
 
 
 [dependencies]
@@ -34,6 +49,7 @@ pydantic = "*"
 pydantic-settings = "*"
 asyncpg = "*"
 psycopg2-binary = "*"
+aiosqlite = "*"
 yoyo-migrations = "*"
 setuptools = "*"
 python-dotenv = "*"

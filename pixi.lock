@@ -7,6 +7,7 @@ environments:
       linux-64:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/_libgcc_mutex-0.1-conda_forge.tar.bz2
       - conda: https://conda.anaconda.org/conda-forge/linux-64/_openmp_mutex-4.5-2_gnu.tar.bz2
+      - conda: https://conda.anaconda.org/conda-forge/noarch/aiosqlite-0.20.0-pyhaa4b35c_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/annotated-types-0.7.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/anyio-4.9.0-pyh29332c3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/async-timeout-5.0.1-pyhd8ed1ab_1.conda
@@ -136,6 +137,18 @@ packages:
   purls: []
   size: 23621
   timestamp: 1650670423406
+- conda: https://conda.anaconda.org/conda-forge/noarch/aiosqlite-0.20.0-pyhaa4b35c_1.conda
+  sha256: 636f28e042d52cbcc4ab7a26fcf5e20543fc3f4949e9e3241e305a4266e780db
+  md5: f4dcae514c7e1f1e70299d3e4ab57c8c
+  depends:
+  - python >=3.9
+  - typing-extensions >=3.7.2
+  license: MIT
+  license_family: MIT
+  purls:
+  - pkg:pypi/aiosqlite?source=hash-mapping
+  size: 19009
+  timestamp: 1734081224803
 - conda: https://conda.anaconda.org/conda-forge/noarch/annotated-types-0.7.0-pyhd8ed1ab_1.conda
   sha256: e0ea1ba78fbb64f17062601edda82097fcf815012cf52bb704150a2668110d48
   md5: 2934f256a8acfe48f6ebb4fce6cde29c

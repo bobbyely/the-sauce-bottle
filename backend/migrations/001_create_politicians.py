@@ -8,7 +8,7 @@ steps = [
         # Forward migration
         """
         CREATE TABLE politicians (
-            id INTEGER PRIMARY KEY,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
             name VARCHAR NOT NULL,
             party VARCHAR,
             chamber VARCHAR,
@@ -17,16 +17,16 @@ steps = [
             state VARCHAR,
             date_elected DATE,
             sitting_status VARCHAR,
-            is_cabinet_minister INTEGER,
-            is_shadow_minister INTEGER,
-            previous_positions VARCHAR,
+            is_cabinet_minister INTEGER DEFAULT 0,
+            is_shadow_minister INTEGER DEFAULT 0,
+            previous_positions TEXT,
             website_url VARCHAR,
-            social_media_links VARCHAR,
+            social_media_links TEXT,
             statement_count INTEGER DEFAULT 0,
-            tags VARCHAR,
+            tags TEXT,
             profile_picture_url VARCHAR,
-            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-            updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
         """,
         # Rollback migration
