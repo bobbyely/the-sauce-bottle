@@ -12,6 +12,8 @@ backend-dev = "uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000"
 start-backend = "./scripts/start-backend.sh"
 test-db = "python -m backend.app.db_test"
 test-backend = "PYTHONPATH=. pytest backend/tests/"
+test-coverage = "PYTHONPATH=. pytest backend/tests/ --cov=backend.app --cov-report=term-missing"
+test-coverage-html = "PYTHONPATH=. pytest backend/tests/ --cov=backend.app --cov-report=html"
 lint = "ruff check ."
 format = "ruff format ."
 test = "PYTHONPATH=. pytest"
@@ -33,6 +35,7 @@ httpx = "*"
 ruff = "*"
 python-multipart = ">=0.0.20,<0.0.21"
 uvicorn = ">=0.34.3,<0.35"
+pytest-cov = ">=6.2.1,<7"
 
 [pypi-dependencies]
 uvicorn = { version = "*", extras = ["standard"] }
