@@ -12,7 +12,7 @@ class Statement(Base):
     """
 
     __tablename__ = "statements"
-    __table_args__ = {'extend_existing': True}
+    __table_args__ = {"extend_existing": True}
 
     id = Column(Integer, primary_key=True, index=True)
     content = Column(Text, nullable=False)  # The main text of the statement
@@ -24,7 +24,7 @@ class Statement(Base):
     source_type = Column(String(50), nullable=True)  # Type of source (e.g., "speech", "interview", "public_statement")
     source_name = Column(String(255), nullable=True)  # Name of the source (e.g. ABC News)
     review_status = Column(String(50), default="pending")  # Status of AI review
-    created_at = Column(DateTime, server_default=func.now())  # Timestamp of creation
-    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())  # Timestamp of last update
+    created_at = Column(DateTime, server_default=func.current_timestamp())  # Timestamp of creation
+    updated_at = Column(DateTime, server_default=func.current_timestamp(), onupdate=func.current_timestamp())  # Timestamp of last update
     
     politician = relationship("Politician", back_populates="statements")

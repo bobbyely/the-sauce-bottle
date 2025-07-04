@@ -8,7 +8,7 @@ description = "Tracking Australian politicians and what they are saying."
 
 [tasks]
 # Task to run the FastAPI development server
-backend-dev = "uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000"
+backend-dev = "bash -c 'source .env && uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000'"
 start-backend = "./scripts/start-backend.sh"
 test-db = "python -m backend.app.db_test"
 test-backend = "PYTHONPATH=. pytest backend/tests/"
@@ -36,6 +36,7 @@ ruff = "*"
 python-multipart = ">=0.0.20,<0.0.21"
 uvicorn = ">=0.34.3,<0.35"
 pytest-cov = ">=6.2.1,<7"
+requests = "*"
 
 [pypi-dependencies]
 uvicorn = { version = "*", extras = ["standard"] }

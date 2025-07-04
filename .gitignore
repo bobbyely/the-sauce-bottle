@@ -23,6 +23,7 @@ pip-requirements.txt
 
 # Backend
 backend/.env
+saucebottle.db
 
 # env
 .env*

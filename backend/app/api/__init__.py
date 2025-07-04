@@ -1,5 +1,4 @@
-"""API Package
+"""API module for The Sauce Bottle application."""
+from backend.app.api.api import api_router
 
-Contains all API-related modules including endpoints, dependencies,
-and routing configuration.
-"""
+__all__ = ["api_router"]

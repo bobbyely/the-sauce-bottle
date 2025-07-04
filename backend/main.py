@@ -3,14 +3,17 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
-from backend.app.api.endpoints import politicians, statements
-from backend.app.api.health import router as health_router
+from backend.app.api.api import api_router
+from backend.app.api.endpoints.health import router as health_router
 
-# Create FastAPI applicaiton instance
+# Create FastAPI application instance
 app = FastAPI(
     title="The Sauce Bottle API",
     description="Australian political statement tracking and analysis.",
     version="0.1.0",
+    docs_url="/api/docs",
+    redoc_url="/api/redoc",
+    openapi_url="/api/openapi.json",
 )
 
 # Configure CORS
@@ -26,29 +29,27 @@ app.add_middleware(
 app.mount("/static", StaticFiles(directory="backend/static"), name="static")
 
 # Favicon route
-@app.get("/favicon.ico")
+@app.get("/favicon.ico", include_in_schema=False)
 async def favicon():
     return FileResponse("backend/static/favicon.ico")
 
-# health endpoints
-app.include_router(health_router)
+# Include health check endpoints (no version prefix)
+app.include_router(health_router, prefix="/api")
 
-# politicians endpoints
-app.include_router(politicians.router, prefix="/api")
-
-# statements endpoints
-app.include_router(statements.router, prefix="/api")
+# Include main API router with all versioned endpoints
+app.include_router(api_router)
 
 # Root endpoint
-@app.get("/")
+@app.get("/", tags=["root"])
 async def root():
     """Root endpoint returning basic API information."""
     return {
-        "message": "Welcome to The Sauce Bottle API.",
+        "message": "Welcome to The Sauce Bottle API",
         "version": "0.1.0",
-        "status": "running",
+        "docs": "/api/docs",
+        "health": "/api/health",
+        "api_v1": "/api/v1",
     }
-
 
 
 # Run the application (for development)

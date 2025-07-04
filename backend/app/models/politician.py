@@ -8,7 +8,7 @@ class Politician(Base):
     """SQLAlchemy model for Australian politicians."""
 
     __tablename__ = "politicians"
-    __table_args__ = {'extend_existing': True}
+    __table_args__ = {"extend_existing": True}
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, nullable=False)
@@ -27,8 +27,8 @@ class Politician(Base):
     statement_count = Column(Integer, default=0)  # Number of statements made by the politician found in db
     tags = Column(String, nullable=True)  # Comma-separated tags for categorization, e.g. climate, health,
     profile_picture_url = Column(String, nullable=True)  # URL to the politician's profile picture
-    created_at = Column(DateTime(timezone=True), server_default=func.now())
-    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+    created_at = Column(DateTime(timezone=True), server_default=func.current_timestamp())
+    updated_at = Column(DateTime(timezone=True), server_default=func.current_timestamp(), onupdate=func.current_timestamp())
 
     statements = relationship("Statement", back_populates="politician")
 

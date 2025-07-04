@@ -4,11 +4,12 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 
 from backend.app.api.deps import get_db
-from backend.app.crud import politician as crud_politician, statement as crud_statement
+from backend.app.crud import politician as crud_politician
+from backend.app.crud import statement as crud_statement
 from backend.app.schemas.politician import Politician, PoliticianCreate, PoliticianUpdate
 from backend.app.schemas.statement import Statement
 
-router = APIRouter(prefix="/politicians", tags=["politicians"])
+router = APIRouter(tags=["politicians"])
 
 @router.get("/", response_model=List[Politician])
 def read_politicians(

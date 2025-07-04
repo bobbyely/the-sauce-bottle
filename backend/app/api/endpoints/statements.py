@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from backend.app import crud, schemas
 from backend.app.api import deps
 
-router = APIRouter(prefix="/statements", tags=["statements"])
+router = APIRouter(tags=["statements"])
 
 @router.get("/", response_model=List[schemas.Statement])
 def read_statements(
